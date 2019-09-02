@@ -11,8 +11,19 @@ const mapStateToProps = state => {
   };
 };
 
+const mapDispatchToProps = dispatch => {
+  return {
+    onClickAdd: newCard => {
+      const action = {
+        type: `${namespace}/addNewCard`,
+        payload: newCard
+      };
+      dispatch(action);
+    }
+  };
+};
 
-@connect(mapStateToProps)
+@connect(mapStateToProps, mapDispatchToProps)
 export default class PuzzleCardsPage extends Component {
   render() {
     return (
@@ -27,9 +38,18 @@ export default class PuzzleCardsPage extends Component {
             </Card>
           );
         })}
-        {/* <div>
-          <Button onClick={this.addNewCard}>添加</Button>
-        </div> */}
+        <div>
+          <Button 
+            onClick={
+              ()=>{
+                this.props.onClickAdd({
+                  setup: "(｡･∀･)ﾉﾞ嗨，你叫什么名字?",
+                  punchline: "我叫贺晓明。"
+                })
+              }
+            }
+          >添加</Button>
+        </div>
       </div>
     );
   }
